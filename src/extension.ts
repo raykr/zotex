@@ -3,7 +3,9 @@
 import * as vscode from 'vscode';
 
 import { exportBibLatex } from './export-bib';
-import { addCitation } from './add-citation';
+import { addCitation } from './add-cite';
+import { addCiteBib } from './add-cite-bib';
+import { addMdCiteBib } from './add-md-bib';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -18,6 +20,8 @@ export function activate(context: vscode.ExtensionContext) {
 	// The commandId parameter must match the command field in package.json
 	context.subscriptions.push(vscode.commands.registerCommand('zotex.exportBibLatex',exportBibLatex));
 	context.subscriptions.push(vscode.commands.registerCommand('zotex.addCitation',addCitation));
+	context.subscriptions.push(vscode.commands.registerCommand('zotex.addCiteBib',addCiteBib));
+	context.subscriptions.push(vscode.commands.registerCommand('zotex.addMdCiteBib',addMdCiteBib));
 
 }
 

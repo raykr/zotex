@@ -20,7 +20,15 @@
       },
       {
         "command": "zotex.addCitation",
-        "title": "Zotex: Add Citation"
+        "title": "Zotex: Add Citation for Pandoc/Latex"
+      },
+      {
+        "command": "zotex.addCiteBib",
+        "title": "Zotex: Cite and Create Bibliography for Pandoc/LaTeX"
+      },
+      {
+        "command": "zotex.addMdCiteBib",
+        "title": "Zotex: Cite and Create Bibliography for Markdown"
       }
     ]
   },
@@ -52,6 +60,7 @@
     "webpack-cli": "^5.1.1"
   },
   "dependencies": {
+    "@orcid/bibtex-parse-js": "^0.0.25",
     "got": "^13.0.0"
   }
 }

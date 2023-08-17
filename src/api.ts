@@ -8,7 +8,6 @@ import { serverUrl, bibliograpyStyle } from "./config"
 export async function pickCiteKeys() {
   // requests citekeys
   const res = await got(`${serverUrl()}/cayw?format=pandoc&brackets=1`)
-  console.log(res.body)
   const data = res.body
 
   const pattern = /@([\w\d]+)/g
@@ -60,8 +59,6 @@ export async function getReference(citeKey: string) {
     method: "item.bibliography",
     params: [["@" + citeKey], { id: bibliograpyStyle() }],
   }
-
-  console.log(payload)
 
   // requests bibliography
   const res = await got.post(`${serverUrl()}/json-rpc`, { json: payload })

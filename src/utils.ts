@@ -154,3 +154,34 @@ export function insertText(text: string, location: number = -1) {
     }
   })
 }
+
+/**
+ * 在pandoc以及latex文档编写过程中，将key数组插入到文档中
+ * @param {string[]} keyList key数组
+ */
+export function insertCiteKeys(keyList: string[]){
+  const editor = window.activeTextEditor;
+  if(editor === undefined){
+      throw new Error("No editor is active.");
+  }
+  var addLocation = getKeyEnvOffset();
+  console.log("addlocation: ", addLocation)
+
+  // insert latex citation。
+  if(editor.document.languageId === 'latex'){
+      if(addLocation === null || addLocation === undefined){
+          insertText('\\cite{'+keyList.join(', ') + '}');
+      }else{
+          insertText(', ' + keyList.join(', '), addLocation-1);
+      }
+  }
+  
+  // insert pandoc citation
+  if(editor.document.languageId === 'markdown'){
+      if(addLocation === null || addLocation === undefined){
+          insertText('[' + keyList.map( v => '@' + v).join('; ') + ']');
+      }else{
+          insertText('; ' + keyList.map( v => '@' + v).join('; '), addLocation-1);
+      }
+  }
+}
