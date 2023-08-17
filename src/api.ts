@@ -1,13 +1,20 @@
 import got from "got"
-import { serverUrl, bibliograpyStyle } from "./config"
+import { serverUrl, bibliograpyStyle, minimizeAfterPicking } from "./config"
 
 /**
  * 调用zotero citation picker获取citekeys
  * @returns string
  */
-export async function pickCiteKeys() {
+export async function pickCiteKeys(selected: boolean = false) {
   // requests citekeys
-  const res = await got(`${serverUrl()}/cayw?format=pandoc&brackets=1`)
+  let params = "?format=pandoc&brackets=1"
+  if (minimizeAfterPicking()) {
+    params += "&minimize=true"
+  }
+  if (selected) {
+    params += "&selected=true"
+  }
+  const res = await got(`${serverUrl()}/cayw${params}`)
   const data = res.body
 
   const pattern = /@([\w\d]+)/g

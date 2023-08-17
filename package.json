@@ -20,15 +20,114 @@
       },
       {
         "command": "zotex.addCitation",
-        "title": "Zotex: Add Citation for Pandoc/Latex"
+        "title": "Zotex: Add Citation"
+      },
+      {
+        "command": "zotex.addZoteroSelectedCitation",
+        "title": "Zotex: Add Zotero Selected Citation"
       },
       {
         "command": "zotex.addCiteBib",
-        "title": "Zotex: Cite and Create Bibliography for Pandoc/LaTeX"
+        "title": "Zotex: Cite and Create Bibliography for LaTeX/Pandoc"
+      },
+      {
+        "command": "zotex.addZoteroSelectedCitationAndBibliography",
+        "title": "Zotex: Add Zotero Selected Citation and Bibliography"
       },
       {
         "command": "zotex.addMdCiteBib",
         "title": "Zotex: Cite and Create Bibliography for Markdown"
+      },
+      {
+        "command": "zotex.addHyperLinkCitation",
+        "title": "Zotex: Add Hyperlink Citation"
+      },
+			{
+				"command": "zotex.openInZotero",
+				"title": "Zotero: Open in Zotero"
+			}
+    ],
+    "commandPalette": [
+      {
+        "command": "zotex.exportBibLatex",
+        "when": "editorLangId == 'latex' || editorLangId == 'markdown'"
+      },
+      {
+        "command": "zotex.addCitation",
+        "when": "editorLangId == 'latex' || editorLangId == 'markdown'"
+      },
+      {
+        "command": "zotex.addZoteroSelectedCitation",
+        "when": "editorLangId == 'latex' || editorLangId == 'markdown'"
+      },
+      {
+        "command": "zotex.addZoteroSelectedCitationAndBibliography",
+        "when": "editorLangId == 'latex' || editorLangId == 'markdown'"
+      },
+      {
+        "command": "zotex.addCiteBib",
+        "when": "editorLangId == 'latex' || editorLangId == 'markdown'"
+      },
+      {
+        "command": "zotex.addMdCiteBib",
+        "when": "editorLangId == 'latex' || editorLangId == 'markdown'"
+      },
+      {
+        "command": "zotex.addHyperLinkCitation",
+        "when": "editorLangId == 'markdown'"
+      },
+      {
+        "command": "zotex.openInZotero",
+        "when": "editorLangId == 'latex'"
+      }
+    ],
+    "keybindings": [
+			{
+				"key": "ctrl+z",
+				"command": "zotex.addCitation",
+				"when": "editorTextFocus && (editorLangId == 'latex' || editorLangId == 'markdown')"
+			},
+      {
+				"key": "ctrl+s",
+				"command": "zotex.addZoteroSelectedCitation",
+				"when": "editorTextFocus && (editorLangId == 'latex' || editorLangId == 'markdown')"
+			},
+      {
+				"key": "ctrl+alt+s",
+				"command": "zotex.addZoteroSelectedCitationAndBibliography",
+				"when": "editorTextFocus && (editorLangId == 'latex' || editorLangId == 'markdown')"
+			}
+		],
+    "configuration": [
+      {
+        "type": "object",
+        "title": "Zotero Cite",
+        "properties": {
+          "zotex.serverUrl": {
+            "type": "string",
+            "default": "http://localhost:23119",
+            "description": "URL of the Zotero server",
+            "scope": "window"
+          },
+          "zotex.bibliograpyStyle": {
+            "type": "string",
+            "default": "http://www.zotero.org/styles/apa",
+            "description": "URL of bibliography style, see: https://www.zotero.org/styles",
+            "scope": "window"
+          },
+          "zotex.defaultBibName": {
+            "type": "string",
+            "default": "ref.bib",
+            "scope": "window",
+            "description": "Default bib file name"
+          },
+          "zotero.minimizeAfterPicking": {
+            "type": "boolean",
+            "default": false,
+            "scope": "window",
+            "description": "Minimize all Zotero windows after picking a citation"
+          }
+        }
       }
     ]
   },

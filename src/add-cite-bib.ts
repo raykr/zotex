@@ -1,15 +1,15 @@
 import { window } from "vscode"
-import { getBibliography, getReference, pickCiteKeys } from "./api"
+import { getBibliography, pickCiteKeys } from "./api"
 import { getLatestBibName } from "./config"
 import { dirname, extname, join } from "path"
-import { getDocumentCiteKeys, insertCiteKeys, insertText } from "./utils"
+import { insertCiteKeys } from "./utils"
 import { existsSync, readFileSync, writeFileSync } from "fs"
 import { toJSON } from "@orcid/bibtex-parse-js"
 
 /**
  * 给pandoc以及latex添加citation以及bibliography
  */
-export async function addCiteBib() {
+export async function addCiteBib(_selected: boolean = false) {
   try {
     const editor = window.activeTextEditor
     if (editor === undefined) {
@@ -34,7 +34,7 @@ export async function addCiteBib() {
     var bibPath = join(parentDir, bibName)
 
     // get selected keys
-    var citeKeys = await pickCiteKeys()
+    var citeKeys = await pickCiteKeys(_selected)
     insertCiteKeys(citeKeys)
 
     // 根据bib文件，而不是cite去获取keys。
@@ -81,4 +81,8 @@ function getBibliographyKeyFromFile(bibPath: string) {
   var jsonBibs = toJSON(content)
 
   return jsonBibs.map((jb: { [x: string]: any }) => jb["citationKey"])
+}
+
+export async function addZoteroSelectedCiteBib() {
+  return addCiteBib(true)
 }
