@@ -4,6 +4,11 @@
   "displayName": "Zotero BBT for LaTeX",
   "description": "Zotero with Better Bibtex support for LaTeX.",
   "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RayKr/zotex"
+  },
   "engines": {
     "vscode": "^1.81.0"
   },
@@ -42,10 +47,10 @@
         "command": "zotex.addHyperLinkCitation",
         "title": "Zotex: Add Hyperlink Citation"
       },
-			{
-				"command": "zotex.openInZotero",
-				"title": "Zotero: Open in Zotero"
-			}
+      {
+        "command": "zotex.openInZotero",
+        "title": "Zotero: Open in Zotero"
+      }
     ],
     "commandPalette": [
       {
@@ -82,22 +87,22 @@
       }
     ],
     "keybindings": [
-			{
-				"key": "ctrl+z",
-				"command": "zotex.addCitation",
-				"when": "editorTextFocus && (editorLangId == 'latex' || editorLangId == 'markdown')"
-			},
       {
-				"key": "ctrl+s",
-				"command": "zotex.addZoteroSelectedCitation",
-				"when": "editorTextFocus && (editorLangId == 'latex' || editorLangId == 'markdown')"
-			},
+        "key": "ctrl+z",
+        "command": "zotex.addCitation",
+        "when": "editorTextFocus && (editorLangId == 'latex' || editorLangId == 'markdown')"
+      },
       {
-				"key": "ctrl+alt+s",
-				"command": "zotex.addZoteroSelectedCitationAndBibliography",
-				"when": "editorTextFocus && (editorLangId == 'latex' || editorLangId == 'markdown')"
-			}
-		],
+        "key": "ctrl+s",
+        "command": "zotex.addZoteroSelectedCitation",
+        "when": "editorTextFocus && (editorLangId == 'latex' || editorLangId == 'markdown')"
+      },
+      {
+        "key": "ctrl+alt+s",
+        "command": "zotex.addZoteroSelectedCitationAndBibliography",
+        "when": "editorTextFocus && (editorLangId == 'latex' || editorLangId == 'markdown')"
+      }
+    ],
     "configuration": [
       {
         "type": "object",
