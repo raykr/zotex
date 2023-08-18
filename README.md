@@ -1,71 +1,87 @@
 # Zotex README
 
-This is the README for your extension "zotex". After writing up a brief description, we recommend including the following sections.
+This is a Zotero Cite plugin that is used to conveniently reference and manage literature in Zotero within VSCode. It supports multiple file formats and can automatically import bib files (such as ref.bib).
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+### Supports multiple file formats
+* Support markdown, pandoc, and LaTeX file insertion references.
+* Support for multiple citation formats, such as pandoc's `[@citekey]`, LaTeX's `\cite{citekey}`, markdown footnotes `[^citekey]`, etc.
+* Support inserting the content in the clipboard as a markdown hyperlink, for example [^wbndRgHX]: <keyContent>, where keyContent is the content in the clipboard and key is automatically generated.
+* Open current cite item in Zotero.
 
-For example if there is an image subfolder under your extension project workspace:
+### Automatically import bib files.
+* You can automatically import bib files based on citekey without the need to export a batch of bib entries in advance, making it more flexible to use.
 
-\!\[feature X\]\(images/feature-x.png\)
+## Usage
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+### Add Citations in Latex/Pandoc.
+* Activate via Command Palette (command + shift + P): Type "`Zotex: Add Citation`" and press enter.
+* Select the item you want to cite in Zotero Citation Picker.
+* The plugin will automatically select the appropriate citation format based on the file extension of the current document, such as `\cite{citekey}` for LaTeX and `[@citekey]` for Pandoc footnotes.
+
+```tex
+% latex
+\cite{andrychowicz2018hindsight}
+% pandoc
+[@andrychowicz2018hindsight]
+```
+
+> Tip: This operation does not automatically import bib entries. If you need to automatically import bib entries, please use the following method.
+
+### Insert citations and automatically import bib entries in Latex/Pandoc.
+* Activate via Command Palette (command + shift + P): Type "`Zotex: Cite and Create Bibliography for Latex/Pandoc`" and press enter.
+
+### Insert footnotes in Markdown.
+* Activate via Command Palette (command + shift + P): Type "`Zotex: Cite and Create Bibliography for Markdown`" and press enter.
+```
+[^andrychowicz2018hindsight][^andrychowicz2018hindsight]: Andrychowicz, M., Wolski, F., Ray, A., Schneider, J., Fong, R., Welinder, P., McGrew, B., Tobin, J., Abbeel, P., & Zaremba, W. (2018). Hindsight Experience Replay (arXiv:1707.01495). arXiv. https://doi.org/10.48550/arXiv.1707.01495
+
+```
+
+### Insert clipboard content as a hyperlink in Markdown.
+* Activate via Command Palette (command + shift + P): Type "`Zotex: Add Hyperlink Citation`" and press enter.
+
+### Open the currently cited item in Zotero.
+* Activate via Command Palette (command + shift + P): Type "`Zotex: Open in Zotero`" and press enter.
+
+### Keyboard shortcuts
+* Pressing `ctrl+s` will open the Zotero Citation Picker to insert a citation.
+* By default, `ctrl+alt+s` directly inserts the citation of the currently selected item in Zotero client and automatically imports the bib entry without needing to initiate Zotero Citation Picker.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+You need to have Zotero installed, along with the Better BibTex extension. You'll probably also want some kind of LaTeX editor extension installed, such as LaTeX Workshop.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+Include if your extension adds any VS Code settings through the `zotex.configuration` extension point.
 
 For example:
 
 This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+* `zotex.serverUrl`: URL of the Zotero server.
+* `zotex.bibliograpyStyle`: URL of bibliography style, see: https://www.zotero.org/styles.
+* `zotex.defaultBibName`: Default bib file name
+* `zotero.minimizeAfterPicking`: Minimize all Zotero windows after picking a citation.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+* `minimizeAfterPicking` is currently set to true, which may cause an error due to a bug in Zotero. It is temporarily set to false.
 
 ## Release Notes
 
 Users appreciate release notes as you update your extension.
 
-### 1.0.0
+### 0.0.1
 
-Initial release of ...
+Initial release of Zotex.
 
-### 1.0.1
+### 0.0.2
 
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Improved README.md.
 
 ---
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
 **Enjoy!**
