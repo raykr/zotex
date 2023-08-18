@@ -127,7 +127,7 @@
             "scope": "window",
             "description": "Default bib file name"
           },
-          "zotero.minimizeAfterPicking": {
+          "zotex.minimizeAfterPicking": {
             "type": "boolean",
             "default": false,
             "scope": "window",

@@ -68,8 +68,6 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-* `minimizeAfterPicking` is currently set to true, which may cause an error due to a bug in Zotero. It is temporarily set to false.
-
 ## Release Notes
 
 Users appreciate release notes as you update your extension.
@@ -81,6 +79,10 @@ Initial release of Zotex.
 ### 0.0.2
 
 Improved README.md.
+
+### 0.0.3
+
+Fix a menu bug about minimizeAfterPicking. `minimizeAfterPicking` must be require Zotero BBT extension build 4926 or later.
 
 ---
 
