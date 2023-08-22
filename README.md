@@ -20,13 +20,6 @@ This is a Zotero Cite plugin that is used to conveniently reference and manage l
 * Select the item you want to cite in Zotero Citation Picker.
 * The plugin will automatically select the appropriate citation format based on the file extension of the current document, such as `\cite{citekey}` for LaTeX and `[@citekey]` for Pandoc footnotes.
 
-```tex
-% latex
-\cite{andrychowicz2018hindsight}
-% pandoc
-[@andrychowicz2018hindsight]
-```
-
 > Tip: This operation does not automatically import bib entries. If you need to automatically import bib entries, please use the following method.
 
 ### Insert citations and automatically import bib entries in Latex/Pandoc.
@@ -34,10 +27,9 @@ This is a Zotero Cite plugin that is used to conveniently reference and manage l
 
 ### Insert footnotes in Markdown.
 * Activate via Command Palette (command + shift + P): Type "`Zotex: Cite and Create Bibliography for Markdown`" and press enter.
-```
-[^andrychowicz2018hindsight][^andrychowicz2018hindsight]: Andrychowicz, M., Wolski, F., Ray, A., Schneider, J., Fong, R., Welinder, P., McGrew, B., Tobin, J., Abbeel, P., & Zaremba, W. (2018). Hindsight Experience Replay (arXiv:1707.01495). arXiv. https://doi.org/10.48550/arXiv.1707.01495
 
-```
+Example:
+> [^andrychowicz2018hindsight][^andrychowicz2018hindsight]: Andrychowicz, M., Wolski, F., Ray, A., Schneider, J., Fong, R., Welinder, P., McGrew, B., Tobin, J., Abbeel, P., & Zaremba, W. (2018). Hindsight Experience Replay (arXiv:1707.01495). arXiv. https://doi.org/10.48550/arXiv.1707.01495
 
 ### Insert clipboard content as a hyperlink in Markdown.
 * Activate via Command Palette (command + shift + P): Type "`Zotex: Add Hyperlink Citation`" and press enter.
