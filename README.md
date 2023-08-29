@@ -76,6 +76,10 @@ Improved README.md.
 
 Fix a menu bug about minimizeAfterPicking. `minimizeAfterPicking` must be require Zotero BBT extension build 4926 or later.
 
+### 1.0.0
+
+Fix: insert incorrectly citation into `\cite[]{}`.
+
 ---
 
 **Enjoy!**

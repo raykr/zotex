@@ -80,7 +80,7 @@ export function getKeyEnvOffset() {
   }
 
   if (editor.document.languageId === "latex") {
-    p = /cite\{([\w\d]+(,| ){0,2})+\}/g
+    p = /cite(\[[^\]]*\])?\{([\w\d]+(,| ){0,2})+\}/g
   }
 
   if (p === null || p === undefined) {

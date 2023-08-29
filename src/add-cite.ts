@@ -1,6 +1,6 @@
 import { window } from "vscode";
 import { pickCiteKeys } from "./api";
-import { getKeyEnvOffset, insertCiteKeys, insertText } from "./utils";
+import { insertCiteKeys } from "./utils";
 
 
 /**

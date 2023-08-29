@@ -18,7 +18,7 @@ export async function exportBibLatex() {
     var bibName = ""
 
     // Current file tab is not saved.
-    if (currentlyOpenTabfilePath.indexOf("Untitled") != -1) {
+    if (currentlyOpenTabfilePath.indexOf("Untitled") !== -1) {
       throw new Error("Please SAVE Current Tab.")
     }
 
