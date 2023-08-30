@@ -2,9 +2,9 @@ import { window } from "vscode"
 import { getBibliography, pickCiteKeys } from "./api"
 import { getLatestBibName } from "./config"
 import { dirname, extname, join } from "path"
-import { insertCiteKeys } from "./utils"
-import { existsSync, readFileSync, writeFileSync } from "fs"
-import { toJSON } from "@orcid/bibtex-parse-js"
+import { getBibliographyKeyFromFile, insertCiteKeys } from "./utils"
+import { writeFileSync } from "fs"
+
 
 /**
  * 给pandoc以及latex添加citation以及bibliography
@@ -63,25 +63,7 @@ export async function addCiteBib(_selected: boolean = false) {
   }
 }
 
-/**
- * 根据bib文件的路径，获取其中的bibentry的key数组
- * @param {string} bibPath bib文件的路径
- * @returns string[]
- */
-function getBibliographyKeyFromFile(bibPath: string) {
-  // 代表文件不存在，返回空数组
-  if (!existsSync(bibPath)) {
-    return new Array()
-  }
 
-  var content = readFileSync(bibPath, {
-    encoding: "utf8",
-  })
-
-  var jsonBibs = toJSON(content)
-
-  return jsonBibs.map((jb: { [x: string]: any }) => jb["citationKey"])
-}
 
 export async function addZoteroSelectedCiteBib() {
   return addCiteBib(true)

@@ -80,6 +80,10 @@ Fix a menu bug about minimizeAfterPicking. `minimizeAfterPicking` must be requir
 
 Fix: insert incorrectly citation into `\cite[]{}`.
 
+### 1.0.1
+
+Fixed the problem that the original bib entry was overwritten when Exporting BibLaTex.
+
 ---
 
 **Enjoy!**

@@ -1,4 +1,6 @@
 import { Position, Range, window } from "vscode"
+import { existsSync, readFileSync } from "fs"
+import { toJSON } from "@orcid/bibtex-parse-js"
 
 /**
  * 输入一段正则表达式以及文字，导出匹配的列表
@@ -194,4 +196,24 @@ export function makeid(length: number) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength))
   }
   return result
+}
+
+/**
+ * 根据bib文件的路径，获取其中的bibentry的key数组
+ * @param {string} bibPath bib文件的路径
+ * @returns string[]
+ */
+export function getBibliographyKeyFromFile(bibPath: string) {
+  // 代表文件不存在，返回空数组
+  if (!existsSync(bibPath)) {
+    return new Array()
+  }
+
+  var content = readFileSync(bibPath, {
+    encoding: "utf8",
+  })
+
+  var jsonBibs = toJSON(content)
+
+  return jsonBibs.map((jb: { [x: string]: any }) => jb["citationKey"])
 }

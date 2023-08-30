@@ -1,5 +1,5 @@
 import { extname, dirname, join } from "path"
-import { getDocumentCiteKeys } from "./utils"
+import { getBibliographyKeyFromFile, getDocumentCiteKeys } from "./utils"
 import { getBibliography } from "./api"
 import { window } from "vscode"
 import { writeFileSync } from "fs"
@@ -45,17 +45,27 @@ export async function exportBibLatex() {
     const keys = getDocumentCiteKeys()
 
     // 去除重复的问题
-    var uniqueKeys = Array.from(new Set(keys))
+    var docKeys = Array.from(new Set(keys))
 
     // 代表不需要导出
-    if (uniqueKeys.length === 0) {
+    if (docKeys.length === 0) {
       throw new Error("No key detected.")
+    }
+
+    // 还要与bib文件中的条目进行比较，如果已经存在，那么就不需要再次添加了
+    var bibKeys = getBibliographyKeyFromFile(bibPath)
+    var uniqueKeys = docKeys.filter((v, _) => !bibKeys.includes(v))
+
+    // 如果为空，代表不需要添加内容的bib文件里边
+    if (uniqueKeys.length === 0) {
+      return
     }
 
     const res = await getBibliography(uniqueKeys)
 
     // try catch
     writeFileSync(bibPath, res, {
+      flag: "a",
       encoding: "utf-8",
     })
 
