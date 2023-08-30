@@ -84,6 +84,10 @@ Fix: insert incorrectly citation into `\cite[]{}`.
 
 Fixed the problem that the original bib entry was overwritten when Exporting BibLaTex.
 
+### 1.0.2
+
+New Feature: Add `Flush BibLaTex` command to reforce fresh bib items and sort.
+
 ---
 
 **Enjoy!**

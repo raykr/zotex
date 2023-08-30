@@ -2,7 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-import { exportBibLatex } from './export-bib';
+import { exportBibLatex, flushBibLatex } from './export-bib';
 import { addCitation, addZoteroSelectedCitation } from './add-cite';
 import { addCiteBib, addZoteroSelectedCiteBib } from './add-cite-bib';
 import { addMdCiteBib } from './add-md-bib';
@@ -21,6 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 	context.subscriptions.push(vscode.commands.registerCommand('zotex.exportBibLatex', exportBibLatex));
+	context.subscriptions.push(vscode.commands.registerCommand('zotex.flushBibLatex', flushBibLatex));
 	context.subscriptions.push(vscode.commands.registerCommand('zotex.addCitation', addCitation));
 	context.subscriptions.push(vscode.commands.registerCommand('zotex.addZoteroSelectedCitation', addZoteroSelectedCitation));
 	context.subscriptions.push(vscode.commands.registerCommand('zotex.addCiteBib', addCiteBib));
