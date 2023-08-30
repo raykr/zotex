@@ -20,12 +20,37 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	context.subscriptions.push(vscode.commands.registerCommand('zotex.exportBibLatex', exportBibLatex));
-	context.subscriptions.push(vscode.commands.registerCommand('zotex.flushBibLatex', flushBibLatex));
+	context.subscriptions.push(vscode.commands.registerCommand('zotex.exportBibLatex', async () => {
+		let latestBibName = context.workspaceState.get<string>('latestBibName');
+		const bibName = await exportBibLatex(latestBibName);
+		if (bibName && bibName !== latestBibName) {
+			context.workspaceState.update('latestBibName', bibName);
+		}
+	}));
+	context.subscriptions.push(vscode.commands.registerCommand('zotex.flushBibLatex', async () => {
+		let latestBibName = context.workspaceState.get<string>('latestBibName');
+		const bibName = await flushBibLatex(latestBibName);
+		if (bibName && bibName !== latestBibName) {
+			context.workspaceState.update('latestBibName', bibName);
+		}
+	}));
+	context.subscriptions.push(vscode.commands.registerCommand('zotex.addCiteBib', async () => {
+		let latestBibName = context.workspaceState.get<string>('latestBibName');
+		const bibName = await addCiteBib(latestBibName);
+		if (bibName && bibName !== latestBibName) {
+			context.workspaceState.update('latestBibName', bibName);
+		}
+	}));
+	context.subscriptions.push(vscode.commands.registerCommand('zotex.addZoteroSelectedCitationAndBibliography', async () => {
+		let latestBibName = context.workspaceState.get<string>('latestBibName');
+		const bibName = await addZoteroSelectedCiteBib(latestBibName);
+		if (bibName && bibName !== latestBibName) {
+			context.workspaceState.update('latestBibName', bibName);
+		}
+	}));
+
 	context.subscriptions.push(vscode.commands.registerCommand('zotex.addCitation', addCitation));
 	context.subscriptions.push(vscode.commands.registerCommand('zotex.addZoteroSelectedCitation', addZoteroSelectedCitation));
-	context.subscriptions.push(vscode.commands.registerCommand('zotex.addCiteBib', addCiteBib));
-	context.subscriptions.push(vscode.commands.registerCommand('zotex.addZoteroSelectedCitationAndBibliography', addZoteroSelectedCiteBib));
 	context.subscriptions.push(vscode.commands.registerCommand('zotex.addMdCiteBib', addMdCiteBib));
 	context.subscriptions.push(vscode.commands.registerCommand('zotex.addHyperLinkCitation', addHyperLinkCitation));
 	context.subscriptions.push(vscode.commands.registerCommand('zotex.openInZotero', openInZotero));

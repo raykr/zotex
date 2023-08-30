@@ -1,15 +1,17 @@
 import { window } from "vscode"
 import { getBibliography, pickCiteKeys } from "./api"
-import { getLatestBibName } from "./config"
 import { dirname, extname, join } from "path"
 import { getBibliographyKeyFromFile, insertCiteKeys } from "./utils"
 import { writeFileSync } from "fs"
-
+import { defaultBibName } from "./config"
 
 /**
  * 给pandoc以及latex添加citation以及bibliography
  */
-export async function addCiteBib(_selected: boolean = false) {
+export async function addCiteBib(
+  bibName: string | undefined = undefined,
+  _selected: boolean = false
+) {
   try {
     const editor = window.activeTextEditor
     if (editor === undefined) {
@@ -23,7 +25,19 @@ export async function addCiteBib(_selected: boolean = false) {
     }
 
     // 得到bib文件的latest文件名
-    const bibName = getLatestBibName()
+    // Ask for bib file name
+    await window
+      .showInputBox({
+        value: bibName || defaultBibName(),
+        prompt: "File Name:",
+      })
+      .then((value) => {
+        bibName = value || ""
+      })
+
+    if (bibName === undefined || bibName === "") {
+      throw new Error("Cancelled.")
+    }
 
     if (bibName.length < 5 || extname(bibName) !== ".bib") {
       throw new Error("bibName is invalid or its length is less than 5.")
@@ -45,26 +59,23 @@ export async function addCiteBib(_selected: boolean = false) {
 
     // 如果为空，代表不需要添加内容的bib文件里边
     if (uniqueKeys.length === 0) {
-      return
+      return bibName
     }
 
-    getBibliography(uniqueKeys)
-      .then((res) => {
-        writeFileSync(bibPath, res, {
-          flag: "a",
-          encoding: "utf8",
-        })
-      })
-      .catch((err) => {
-        window.showErrorMessage(err.message)
-      })
+    const res = await getBibliography(uniqueKeys)
+
+    writeFileSync(bibPath, res, {
+      flag: "a",
+      encoding: "utf8",
+    })
+    return bibName
   } catch (err: Error | any) {
     window.showErrorMessage(err.message)
   }
 }
 
-
-
-export async function addZoteroSelectedCiteBib() {
-  return addCiteBib(true)
+export async function addZoteroSelectedCiteBib(
+  bibName: string | undefined = undefined
+) {
+  return addCiteBib(bibName, true)
 }
