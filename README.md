@@ -88,6 +88,10 @@ Fixed the problem that the original bib entry was overwritten when Exporting Bib
 
 New Feature: Add `Flush BibLaTex` command to reforce fresh bib items and sort.
 
+### 1.0.3
+
+Update icon.
+
 ---
 
 **Enjoy!**
