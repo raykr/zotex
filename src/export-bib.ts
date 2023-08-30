@@ -1,14 +1,14 @@
 import { extname, dirname, join } from "path"
 import { getBibliographyKeyFromFile, getNestedCitekeys } from "./utils"
 import { getBibliography } from "./api"
-import { window, ExtensionContext } from "vscode"
+import { window } from "vscode"
 import { writeFileSync } from "fs"
 import { getLatestBibName, setLatestBibName } from "./config"
 
 /**
  * 根据latex和markdown环境的不同，导出所有的bibliography到文件中
  */
-export async function exportBibLatex(context: ExtensionContext) {
+export async function exportBibLatex() {
   try {
     const editor = window.activeTextEditor
     if (editor === undefined) {
@@ -24,7 +24,7 @@ export async function exportBibLatex(context: ExtensionContext) {
 
     // Ask for bib file name
     await window
-      .showInputBox({ value: getLatestBibName(context), prompt: "File Name:" })
+      .showInputBox({ value: getLatestBibName(), prompt: "File Name:" })
       .then((value) => {
         bibName = value || ""
       })
@@ -34,17 +34,13 @@ export async function exportBibLatex(context: ExtensionContext) {
     }
 
     if (bibName.length < 5 || extname(bibName) !== ".bib") {
-      return
+      throw new Error("bibName is invalid or its length is less than 5.")
     }
 
     // Create bib Path
-    console.log("currentlyOpenTabfilePath==>", currentlyOpenTabfilePath)
-    var parentDir = dirname(currentlyOpenTabfilePath)
-    console.log("parentDir==>", parentDir)
-    var bibPath = join(parentDir, bibName)
-    console.log("bibName==>", bibName)
-    console.log("bibPath==>", bibPath)
-
+        var parentDir = dirname(currentlyOpenTabfilePath)
+        var bibPath = join(parentDir, bibName)
+    
     // 获取文档内键列表
     let docKeys: string[] = []
     // 获取当前文档的内容
@@ -62,10 +58,7 @@ export async function exportBibLatex(context: ExtensionContext) {
 
     // 还要与bib文件中的条目进行比较，如果已经存在，那么就不需要再次添加了
     let bibKeys = getBibliographyKeyFromFile(bibPath)
-    console.log("bibPath==>", bibPath)
-    console.log("bibKeys==>", bibKeys)
     let uniqueKeys = docUniKeys.filter((v, _) => !bibKeys.includes(v))
-    console.log("uniqueKeys==>", uniqueKeys)
 
     // 如果为空，代表不需要添加内容的bib文件里边
     if (uniqueKeys.length === 0) {
@@ -81,7 +74,7 @@ export async function exportBibLatex(context: ExtensionContext) {
     })
 
     // 如果用户重新输入了bib文件名，那么就更新保持最后修改的名称
-    setLatestBibName(context, bibName)
+    setLatestBibName(bibName)
 
     window.showInformationMessage("Bib exported.")
   } catch (err) {
@@ -92,7 +85,7 @@ export async function exportBibLatex(context: ExtensionContext) {
 /**
  * 强制刷新bib文件，覆盖、排序
  */
-export async function flushBibLatex(context: ExtensionContext) {
+export async function flushBibLatex() {
   try {
     const editor = window.activeTextEditor
     if (editor === undefined) {
@@ -108,7 +101,7 @@ export async function flushBibLatex(context: ExtensionContext) {
 
     // Ask for bib file name
     await window
-      .showInputBox({ value: getLatestBibName(context), prompt: "File Name:" })
+      .showInputBox({ value: getLatestBibName(), prompt: "File Name:" })
       .then((value) => {
         bibName = value || ""
       })
@@ -137,8 +130,7 @@ export async function flushBibLatex(context: ExtensionContext) {
     let keys = (docKeys || []).concat(bibKeys)
     // 去除重复的键
     var uniqueKeys = Array.from(new Set(keys))
-    console.log("uniqueKeys==>", uniqueKeys)
-    // 如果为空，代表不需要添加内容的bib文件里边
+        // 如果为空，代表不需要添加内容的bib文件里边
     if (uniqueKeys.length === 0) {
       return
     }
@@ -150,7 +142,7 @@ export async function flushBibLatex(context: ExtensionContext) {
     })
 
     // 如果用户重新输入了bib文件名，那么就更新保持最后修改的名称
-    setLatestBibName(context, bibName)
+    setLatestBibName(bibName)
 
     window.showInformationMessage("Bib Flushed.")
   } catch (err) {
