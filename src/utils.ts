@@ -1,6 +1,7 @@
 import { Position, Range, window } from "vscode"
 import { existsSync, readFileSync } from "fs"
 import { toJSON } from "@orcid/bibtex-parse-js"
+import * as path from "path"
 
 /**
  * 输入一段正则表达式以及文字，导出匹配的列表
@@ -39,22 +40,61 @@ function getCiteKeyList(keyMatchList: any[]) {
   return citeKeyList
 }
 
+export function getNestedCitekeys(
+  keyList: string[],
+  content: any,
+  dir: string
+) {
+  // 从内容中获取所有的键
+  let keys = getDocumentCiteKeys(content)
+  keyList.push(...(keys || []))
+  // 从content中找到所有\input{...}的内容
+  let inputPattern = /\\input\{(.*)\}/g
+  let inputMatches = getMatchList(inputPattern, content)
+  let inputPaths = inputMatches.map((v) => v[1])
+  // 遍历所有的inputPaths
+  inputPaths.forEach((v) => {
+    // 如果v没有.tex后缀，那么就加上
+    if (path.extname(v) === "") {
+      v = v + ".tex"
+    }
+    // 如果v是相对路径，那么就加上dir
+    if (!path.isAbsolute(v)) {
+      v = path.join(dir, v)
+    }
+    // 获取当前文件所在目录路径
+    let d = path.dirname(v)
+    // 获取内容
+    const ctt = readFileSync(v, {
+      encoding: "utf8",
+    })
+
+    getNestedCitekeys(keyList, ctt, d)
+  })
+}
+
 /**
  * 获取文档中引用的键列表
  */
-export function getDocumentCiteKeys() {
-  const editor = window.activeTextEditor
-  if (editor === undefined) {
-    throw new Error("No editor is active.")
+export function getDocumentCiteKeys(content: any = undefined) {
+  let languageId: string
+  let p: RegExp | null = null
+  if (content === undefined) {
+    const editor = window.activeTextEditor
+    if (editor === undefined) {
+      throw new Error("No editor is active.")
+    }
+    content = editor.document.getText()
+    languageId = editor.document.languageId
+  } else {
+    languageId = "latex"
   }
-  const content = editor.document.getText()
-  let p
 
-  if (editor.document.languageId === "markdown") {
+  if (languageId === "markdown") {
     p = /\[([@^][\w\d]+(;| ){0,2})+\]/g
   }
 
-  if (editor.document.languageId === "latex") {
+  if (languageId === "latex") {
     p = /cite(\[[^\]]*\])?\{([\w\d]+(,| ){0,2})+\}/g
   }
 
