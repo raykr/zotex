@@ -92,6 +92,10 @@ New Feature: Add `Flush BibLaTex` command to reforce fresh bib items and sort.
 
 Update icon.
 
+### 1.0.3
+
+New Feature: support export bib items nested. Awesome!
+
 ---
 
 **Enjoy!**
