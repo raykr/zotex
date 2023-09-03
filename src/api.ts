@@ -25,9 +25,9 @@ export async function pickCiteKeys(selected: boolean = false) {
   }
 
   // 代表没有选择item，抛出异常。
-  // if (citeKeys.length === 0) {
-  //   throw new Error("No item is selected.")
-  // }
+  if (citeKeys.length === 0) {
+    throw new Error("No item is selected.")
+  }
 
   return citeKeys
 }
