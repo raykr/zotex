@@ -28,7 +28,7 @@ export async function addMdCiteBib(){
         });
     
     }catch(err: Error | any){
-        window.showErrorMessage(err.message);
+        window.showWarningMessage(err.message);
     }
 }
 

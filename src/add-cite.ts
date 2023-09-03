@@ -11,7 +11,7 @@ export async function addCitation(_selected: boolean = false){
         var citeKeys = await pickCiteKeys(_selected);
         insertCiteKeys(citeKeys);
     }catch(err){
-        window.showErrorMessage((err as Error).message);
+        window.showWarningMessage((err as Error).message);
     }
 }
 

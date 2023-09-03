@@ -3,7 +3,7 @@ import { getBibliographyKeyFromFile, getNestedCitekeys } from "./utils"
 import { getBibliography } from "./api"
 import { window } from "vscode"
 import { writeFileSync } from "fs"
-import { setWorkspaceBibPath } from "./config"
+import { getLatestBibName } from "./config"
 import * as vscode from "vscode"
 
 /**
@@ -23,14 +23,9 @@ export async function exportBibLatex(context: vscode.ExtensionContext) {
     }
 
     // if workspaceBibPath is not set, ask user to set it.
-    const bibName = context.workspaceState.get<string>("latestBibName") || ""
+    let bibName = await getLatestBibName(context);
     if (!bibName) {
-      vscode.commands.executeCommand("zotex.setWorkspaceBibPath")
-      if (bibName === undefined || bibName === "") {
-        window.showErrorMessage(
-          "[Tip]: Please set a .bib file path before use."
-        )
-      }
+      throw new Error("Please set a .bib file path before use.")
     }
 
     // Create bib Path
@@ -72,7 +67,7 @@ export async function exportBibLatex(context: vscode.ExtensionContext) {
     console.log("Bib exported.", bibName)
     return bibName
   } catch (err) {
-    window.showErrorMessage((err as Error).message)
+    window.showWarningMessage((err as Error).message)
   }
 }
 
@@ -93,14 +88,9 @@ export async function flushBibLatex(context: vscode.ExtensionContext) {
     }
 
     // if workspaceBibPath is not set, ask user to set it.
-    const bibName = context.workspaceState.get<string>("latestBibName") || ""
+    let bibName = await getLatestBibName(context);
     if (!bibName) {
-      vscode.commands.executeCommand("zotex.setWorkspaceBibPath")
-      if (bibName === undefined || bibName === "") {
-        window.showErrorMessage(
-          "[Tip]: Please set a .bib file path before use."
-        )
-      }
+      throw new Error("Please set a .bib file path before use.")
     }
 
     // Create bib Path
@@ -132,6 +122,6 @@ export async function flushBibLatex(context: vscode.ExtensionContext) {
     window.showInformationMessage("Bib Flushed.")
     return bibName
   } catch (err) {
-    window.showErrorMessage((err as Error).message)
+    window.showWarningMessage((err as Error).message)
   }
 }

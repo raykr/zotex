@@ -48,3 +48,11 @@ export async function setWorkspaceBibPath(context: vscode.ExtensionContext) {
     return value;
   });
 }
+
+export async function getLatestBibName(context:vscode.ExtensionContext){
+  let bibName = context.workspaceState.get<string>('latestBibName');
+  if(bibName === undefined){
+    bibName = await setWorkspaceBibPath(context);
+  }
+  return bibName || "";
+}

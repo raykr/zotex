@@ -3,6 +3,7 @@ import { getBibliography, pickCiteKeys } from "./api"
 import { getBibliographyKeyFromFile, insertCiteKeys } from "./utils"
 import { writeFileSync } from "fs"
 import * as vscode from 'vscode';
+import { getLatestBibName } from "./config";
 
 /**
  * 给pandoc以及latex添加citation以及bibliography
@@ -24,15 +25,11 @@ export async function addCiteBib(
     }
 
     // if workspaceBibPath is not set, ask user to set it.
-    const bibName = context.workspaceState.get<string>("latestBibName") || ""
+    let bibName = await getLatestBibName(context);
     if (!bibName) {
-      vscode.commands.executeCommand("zotex.setWorkspaceBibPath")
-      if (bibName === undefined || bibName === "") {
-        window.showErrorMessage(
-          "[Tip]: Please set a .bib file path before use."
-        )
-      }
+      throw new Error("Please set a .bib file path before use.")
     }
+
     // get selected keys
     var citeKeys = await pickCiteKeys(_selected)
     insertCiteKeys(citeKeys)
@@ -56,7 +53,7 @@ export async function addCiteBib(
     })
     return bibName
   } catch (err: Error | any) {
-    window.showErrorMessage(err.message)
+    window.showWarningMessage(err.message)
   }
 }
 

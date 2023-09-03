@@ -13,7 +13,7 @@ export async function addHyperLinkCitation() {
   let clipContent = await env.clipboard.readText()
 
   if (clipContent === "") {
-    window.showErrorMessage("No Data in Clipboard.")
+    window.showWarningMessage("No Data in Clipboard.")
     return
   }
 
