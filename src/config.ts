@@ -17,7 +17,9 @@ export function minimizeAfterPicking() {
   return vscode.workspace.getConfiguration('zotex').get('minimizeAfterPicking', false);
 }
 
-export async function setWorkspaceBibPath(latestBibName: string | undefined) {
+export async function setWorkspaceBibPath(context: vscode.ExtensionContext) {
+  let latestBibName = context.workspaceState.get<string>('latestBibName');
+
   const inputBibPath = vscode.window.showInputBox({
     value: latestBibName || defaultBibName(),
     prompt: 'File Name: support relative path, e.g. ../ref.bib and absolute path, e.g. /home/user/ref.bib',
@@ -39,6 +41,10 @@ export async function setWorkspaceBibPath(latestBibName: string | undefined) {
       }
       value = path.join(path.dirname(currentFilePath), value);
     }
+
+    // set 
+    context.workspaceState.update('latestBibName', value);
+    
     return value;
   });
 }

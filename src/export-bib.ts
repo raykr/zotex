@@ -4,11 +4,12 @@ import { getBibliography } from "./api"
 import { window } from "vscode"
 import { writeFileSync } from "fs"
 import { setWorkspaceBibPath } from "./config"
+import * as vscode from "vscode"
 
 /**
  * 根据latex和markdown环境的不同，导出所有的bibliography到文件中
  */
-export async function exportBibLatex(bibName: string | undefined = undefined) {
+export async function exportBibLatex(context: vscode.ExtensionContext) {
   try {
     const editor = window.activeTextEditor
     if (editor === undefined) {
@@ -22,10 +23,13 @@ export async function exportBibLatex(bibName: string | undefined = undefined) {
     }
 
     // if workspaceBibPath is not set, ask user to set it.
+    const bibName = context.workspaceState.get<string>("latestBibName") || ""
     if (!bibName) {
-      bibName = await setWorkspaceBibPath("") || ""
+      vscode.commands.executeCommand("zotex.setWorkspaceBibPath")
       if (bibName === undefined || bibName === "") {
-        window.showErrorMessage("[Tip]: Please set a .bib file path before use.")
+        window.showErrorMessage(
+          "[Tip]: Please set a .bib file path before use."
+        )
       }
     }
 
@@ -75,7 +79,7 @@ export async function exportBibLatex(bibName: string | undefined = undefined) {
 /**
  * 强制刷新bib文件，覆盖、排序
  */
-export async function flushBibLatex(bibName: string | undefined = undefined) {
+export async function flushBibLatex(context: vscode.ExtensionContext) {
   try {
     const editor = window.activeTextEditor
     if (editor === undefined) {
@@ -89,10 +93,13 @@ export async function flushBibLatex(bibName: string | undefined = undefined) {
     }
 
     // if workspaceBibPath is not set, ask user to set it.
+    const bibName = context.workspaceState.get<string>("latestBibName") || ""
     if (!bibName) {
-      bibName = await setWorkspaceBibPath("") || ""
+      vscode.commands.executeCommand("zotex.setWorkspaceBibPath")
       if (bibName === undefined || bibName === "") {
-        window.showErrorMessage("[Tip]: Please set a .bib file path before use.")
+        window.showErrorMessage(
+          "[Tip]: Please set a .bib file path before use."
+        )
       }
     }
 
