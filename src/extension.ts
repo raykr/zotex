@@ -8,6 +8,7 @@ import { addCiteBib, addZoteroSelectedCiteBib } from './add-cite-bib';
 import { addMdCiteBib } from './add-md-bib';
 import { addHyperLinkCitation } from './add-link';
 import { openInZotero } from './open-zotero';
+import { setWorkspaceBibPath } from './config';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -54,6 +55,13 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('zotex.addMdCiteBib', addMdCiteBib));
 	context.subscriptions.push(vscode.commands.registerCommand('zotex.addHyperLinkCitation', addHyperLinkCitation));
 	context.subscriptions.push(vscode.commands.registerCommand('zotex.openInZotero', openInZotero));
+	context.subscriptions.push(vscode.commands.registerCommand('zotex.setWorkspaceBibPath', async () => {
+		let latestBibName = context.workspaceState.get<string>('latestBibName');
+		const bibName = await setWorkspaceBibPath(latestBibName);
+		if (bibName && bibName !== latestBibName) {
+			context.workspaceState.update('latestBibName', bibName);
+		}
+	}));
 
 }
 

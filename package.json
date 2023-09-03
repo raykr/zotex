@@ -26,7 +26,7 @@
       },
       {
         "command": "zotex.flushBibLatex",
-        "title": "Zotex: Flush BibLaTeX"
+        "title": "Zotex: Export BibLaTeX (flush with overwritting and sorting)"
       },
       {
         "command": "zotex.addCitation",
@@ -54,7 +54,11 @@
       },
       {
         "command": "zotex.openInZotero",
-        "title": "Zotero: Open in Zotero"
+        "title": "Zotex: Open in Zotero"
+      },
+      {
+        "command": "zotex.setWorkspaceBibPath",
+        "title": "Zotex: Set Current Workspace Bib Path"
       }
     ],
     "commandPalette": [
