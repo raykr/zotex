@@ -111,6 +111,10 @@ New Feature: support export bib items nested. Awesome!
 
 Bug Fix: imported incorrect when citekey contains special characters, e.g. `-`.
 
+### 1.0.8
+
+Bug Fix: cannot `Open in Zotero` when citekey contains special characters, e.g. `-`.
+
 ---
 
 **Enjoy!**
