@@ -17,7 +17,7 @@ export async function pickCiteKeys(selected: boolean = false) {
   const res = await got(`${serverUrl()}/cayw${params}`)
   const data = res.body
 
-  const pattern = /@([\w\d]+)/g
+  const pattern = /@([\w\d_-]+)/g
   let m
   let citeKeys = []
   while ((m = pattern.exec(data)) !== null) {
