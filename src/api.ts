@@ -52,7 +52,7 @@ export async function getBibliography(keys: string[]) {
     throw new Error(err["message"])
   }
 
-  return data["result"][2]
+  return data["result"]
 }
 
 /**
