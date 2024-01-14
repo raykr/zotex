@@ -51,8 +51,7 @@ export async function getBibliography(keys: string[]) {
     let err = data["error"]
     throw new Error(err["message"])
   }
-
-  return data["result"][2]
+  return data["result"]
 }
 
 /**
