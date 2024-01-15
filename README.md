@@ -115,6 +115,10 @@ Bug Fix: imported incorrect when citekey contains special characters, e.g. `-`.
 
 Bug Fix: cannot `Open in Zotero` when citekey contains special characters, e.g. `-`.
 
+### 1.0.9
+
+Bug Fix: cannot add biblatex to ref.bib.
+
 ---
 
 **Enjoy!**
