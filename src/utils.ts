@@ -95,7 +95,7 @@ export function getDocumentCiteKeys(content: any = undefined) {
   }
 
   if (languageId === "latex") {
-    p = /cite(\[[^\]]*\])?\{([\w\d]+(,| ){0,2})+\}/g
+    p = /(cite|citet|citep|citet\*|citep\*|citeauthor|citeyear)(\[[^\]]*\])?{([\w\d]+(,| ){0,2})+}/g
   }
 
   if (p !== null && p !== undefined) {
@@ -122,7 +122,7 @@ export function getKeyEnvOffset() {
   }
 
   if (editor.document.languageId === "latex") {
-    p = /cite(\[[^\]]*\])?\{([\w\d]+(,| ){0,2})+\}/g
+    p = /(cite|citet|citep|citet\*|citep\*|citeauthor|citeyear)(\[[^\]]*\])?{([\w\d]+(,| ){0,2})+}/g
   }
 
   if (p === null || p === undefined) {
