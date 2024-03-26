@@ -3,7 +3,7 @@
   "publisher": "raykr",
   "displayName": "Zotex",
   "description": "Zotero with Better Bibtex support for LaTeX.",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -155,6 +155,8 @@
     ]
   },
   "scripts": {
+    "vsce:package": "vsce package",
+    "vsce:publish": "vsce publish",
     "vscode:prepublish": "yarn run package",
     "compile": "webpack",
     "watch": "webpack --watch",

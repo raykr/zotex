@@ -119,6 +119,10 @@ Bug Fix: cannot `Open in Zotero` when citekey contains special characters, e.g. 
 
 Bug Fix: cannot add biblatex to ref.bib.
 
+### 1.0.10
+
+New Feature: Add support for other citation commands in Natbib.
+
 ---
 
 **Enjoy!**
