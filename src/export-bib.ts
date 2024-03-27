@@ -9,7 +9,7 @@ import * as vscode from "vscode"
 /**
  * 根据latex和markdown环境的不同，导出所有的bibliography到文件中
  */
-export async function exportBibLatex(context: vscode.ExtensionContext) {
+export async function exportBib(context: vscode.ExtensionContext) {
   try {
     const editor = window.activeTextEditor
     if (editor === undefined) {
@@ -74,7 +74,7 @@ export async function exportBibLatex(context: vscode.ExtensionContext) {
 /**
  * 强制刷新bib文件，覆盖、排序
  */
-export async function flushBibLatex(context: vscode.ExtensionContext) {
+export async function flushBib(context: vscode.ExtensionContext) {
   try {
     const editor = window.activeTextEditor
     if (editor === undefined) {
