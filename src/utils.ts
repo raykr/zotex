@@ -29,7 +29,7 @@ function getCiteKeyList(keyMatchList: any[]) {
   keyMatchList.forEach(
     (/** @type {string[]} */ v: string[], /** @type {any} */ i: any) => {
       // 处理latex的情况
-      let a = v[0].replace(/^cite/, "")
+      let a = v[0].replace(/^cite(t|p)?(\*)?(author|year)?/, "")
       let p = /(\w|\d)+/g
       let keyMatches = getMatchList(p, a)
       keyMatches.forEach((vi) => {
