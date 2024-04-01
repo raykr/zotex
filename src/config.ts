@@ -17,6 +17,10 @@ export function minimizeAfterPicking() {
   return vscode.workspace.getConfiguration('zotex').get('minimizeAfterPicking', false);
 }
 
+export function bibliographyPackage() {
+  return vscode.workspace.getConfiguration('zotex').get('bibliographyPackage', false);
+}
+
 export async function setWorkspaceBibPath(context: vscode.ExtensionContext) {
   let latestBibName = context.workspaceState.get<string>('latestBibName');
 

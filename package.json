@@ -21,12 +21,12 @@
   "contributes": {
     "commands": [
       {
-        "command": "zotex.exportBibLatex",
-        "title": "Zotex: Export BibLaTeX"
+        "command": "zotex.exportBib",
+        "title": "Zotex: Export Bib"
       },
       {
-        "command": "zotex.flushBibLatex",
-        "title": "Zotex: Export BibLaTeX (flush with overwritting and sorting)"
+        "command": "zotex.flushBib",
+        "title": "Zotex: Export Bib (flush with overwritting and sorting)"
       },
       {
         "command": "zotex.addCitation",
@@ -63,11 +63,11 @@
     ],
     "commandPalette": [
       {
-        "command": "zotex.exportBibLatex",
+        "command": "zotex.exportBib",
         "when": "editorLangId == 'latex' || editorLangId == 'markdown'"
       },
       {
-        "command": "zotex.flushBibLatex",
+        "command": "zotex.flushBib",
         "when": "editorLangId == 'latex' || editorLangId == 'markdown'"
       },
       {
@@ -149,6 +149,12 @@
             "default": false,
             "scope": "window",
             "description": "Minimize all Zotero windows after picking a citation"
+          },
+          "zotex.bibliographyPackage": {
+            "type": "string",
+            "default": "biblatex",
+            "scope": "window",
+            "description": "Default bibliography package, biblatex or bibtex"
           }
         }
       }

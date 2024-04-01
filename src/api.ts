@@ -1,5 +1,5 @@
 import got from "got"
-import { serverUrl, bibliograpyStyle, minimizeAfterPicking } from "./config"
+import { serverUrl, bibliograpyStyle, minimizeAfterPicking, bibliographyPackage } from "./config"
 
 /**
  * 调用zotero citation picker获取citekeys
@@ -41,7 +41,7 @@ export async function getBibliography(keys: string[]) {
   let payload = {
     jsonrpc: "2.0",
     method: "item.export",
-    params: [keys, "biblatex"],
+    params: [keys, bibliographyPackage()],
   }
 
   // requests bibliography
